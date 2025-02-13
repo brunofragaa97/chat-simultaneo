@@ -31,7 +31,7 @@ import React, { useState } from "react";
       
         return (
           <div className="form-container-login">
-            <h1>ENTRE COM O EMAIL</h1>
+            <h2>ENTRE PARA ACESSAR O CHAT</h2>
             <form  className="client-form-login">
               {[
                 { label: "E-mail", name: "email", type: "email" },
