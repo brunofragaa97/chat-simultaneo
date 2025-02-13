@@ -28,12 +28,38 @@ import React, { useState } from "react";
           return Object.keys(newErrors).length === 0;
         };
       
+        const efetuarLogin = async (e) => {
+            e.preventDefault();
+            if(validateForm()){
+              try{
+                const response = await fetch("http://192.168.0.197:8080/userLogin",{
+                  method: 'POST',
+                  headers: {"Content-Type": "aplication/json"},
+                  body: JSON.stringify({
+                    email: formData.email,
+                    senha: formData.senha
+                  }),
+                });
+                const servidor = await response.json();
+
+                if (response.ok) {
+                  console.log("LOGADO")
+                }else{
+                  console.log ("erro ao logar")
+                  setErrors ({ login: "Usuario ou senha invalidos"});
+                }
+              }
+              catch (error){
+                setErrors({ login: "Servidor indisponivel baby"});
+              }
+            }
+        }
         
       
         return (
           <div className="form-container-login">
             <h2>ENTRE PARA ACESSAR O CHAT</h2>
-            <form  className="client-form-login">
+            <form onSubmit={efetuarLogin} className="client-form-login">
               {[
                 { label: "E-mail", name: "email", type: "email" },
                 { label: "Senha", name: "senha", type: "password" },
