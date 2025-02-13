@@ -1,0 +1,9 @@
+.background-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1f1f2e, #121212);
+    font-family: 'Arial', sans-serif;
+  }
