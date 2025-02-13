@@ -1,4 +1,5 @@
 import '../CSS/desktop/index.css'
+import '../CSS/mobile/index.css'
 import Login from './login';
 
 function Index() {
