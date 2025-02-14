@@ -35,7 +35,7 @@ const CadastroCliente = ({ closeModal }) => {
     if (validateForm()) {
       try {
         const response = await fetch(
-          "http:///192.168.0.197:8080/CadastrarClientes",
+          "http:///192.168.0.197:9000/usuarios/cadastrarUsuario",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -49,7 +49,7 @@ const CadastroCliente = ({ closeModal }) => {
         const servidor = await response.json();
         if (response.ok) {
           console.log(servidor.message , "Cliente cadastrado: ", servidor.cliente);
-          console.log ("Horario da requisicao: ", currentDateTime)
+          
           alert("Cadastro realizado com sucesso!");
           closeModal();
           setFormData({
