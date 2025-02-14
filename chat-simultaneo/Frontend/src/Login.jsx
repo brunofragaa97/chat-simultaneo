@@ -43,9 +43,9 @@ import React, { useState } from "react";
                 const servidor = await response.json();
 
                 if (response.ok) {
-                  console.log("LOGADO")
+                  console.log("Mensagem servidor: " , servidor.message , "LOGADO")
                 }else{
-                  console.log ("erro ao logar")
+                  console.log ("Mensagem servidor: " , servidor.message ,"erro ao logar")
                   setErrors ({ login: "Usuario ou senha invalidos"});
                 }
               }

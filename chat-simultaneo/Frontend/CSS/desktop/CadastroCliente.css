@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(0, 0, 0);
+    opacity: 10px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Remove rolagem desnecessária */
+  }
+  
+  .form-container {
+    background-color: #1f1f1f;
+    padding: 20px; /* Reduzi o padding */
+    width: 25vw; /* Largura compacta */
+    height: 70vh; /* Ajusta altura para caber os campos */
+  }
+  
+  h1 {
+    margin: 0; /* Remove qualquer margem residual */
+    padding: 0; /* Remove espaçamento extra */
+    text-align: center;
+    color: #00bcd4;
+    font-size: 16px; /* Reduzi o tamanho da fonte */
+  }
+  
+  .client-form .form-group {
+    margin-top: 1rem;
+    margin-bottom: 10px; /* Menor espaçamento entre os campos */
+  }
+  
+  .client-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #b0bec5;
+    font-size: 12px; /* Reduzi o tamanho da fonte */
+  }
+  
+  .client-form input {
+    width: 100%;
+    padding: 5px; /* Reduzi o padding */
+    border: 1px solid #37474f;
+    border-radius: 4px;
+    background-color: #263238;
+    color: #e0e0e0;
+    outline: none;
+    font-size: 12px; /* Reduzi o tamanho da fonte */
+  }
+  
+  .client-form input:focus {
+    border-color: #00bcd4;
+  }
+  
+  .client-form .input-error {
+    border-color: #e57373;
+  }
+  
+  .client-form small {
+    color: #e57373;
+    font-size: 10px; /* Reduzi o tamanho da fonte */
+  }
+  
+  .submit-button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 6px; /* Reduzi o padding */
+    border: none;
+    border-radius: 4px;
+    background-color: #00bcd4;
+    color: #121212;
+    font-size: 12px; /* Reduzi o tamanho da fonte */
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0097a7;
+  }
+  
