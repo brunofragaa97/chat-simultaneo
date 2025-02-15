@@ -1,0 +1,30 @@
+@media screen and (max-width: 415px) and (max-height: 900px) {
+  .form-container {
+    width: 80vw; /* Largura compacta */
+    height: 100vh; /* Ajusta altura para caber os campos */
+    
+  }
+  .client-form input {
+    width:45vh;
+
+  }
+  .submit-button {
+    margin-top: 50px;
+  }
+}
+
+
+@media screen and (max-width: 390px) and (max-height: 844px) {
+  .form-container {
+    width: 80vw; /* Largura compacta */
+    height: 100vh; /* Ajusta altura para caber os campos */
+    
+  }
+  .client-form input {
+    width:45vh;
+
+  }
+  .submit-button {
+    margin-top: 30px;
+  }
+}

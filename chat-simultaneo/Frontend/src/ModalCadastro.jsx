@@ -1,4 +1,5 @@
 import "../CSS/desktop/modalCadastro.css"
+import "../CSS/mobile/modalCadastro.css"
 
 
 const ModalCadastro = ({ isOpen, onClose, children }) => {

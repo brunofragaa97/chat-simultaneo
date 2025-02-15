@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../CSS/desktop/CadastroCliente.css"
+import "../CSS/mobile/CadastroCliente.css"
+
 
 const CadastroCliente = ({ closeModal }) => {
   
@@ -57,7 +59,7 @@ const CadastroCliente = ({ closeModal }) => {
             senha: "",
             email: "",
           });
-          
+          setErrors({ });
         } else {
           console.log("Erro ao cadastrar cliente");
           setErrors({ login: "erro ao enviar informacoes" });
@@ -68,6 +70,7 @@ const CadastroCliente = ({ closeModal }) => {
       }
     } else {
       alert("Por favor, preencha todos os campos.");
+      
     }
   };
 
@@ -97,7 +100,9 @@ const CadastroCliente = ({ closeModal }) => {
         <button type="submit" className="submit-button">
           Enviar Cadastro
         </button>
+        
       </form>
+      {errors.login && <div className="error-message">{errors.login}</div>}
     </div>
   );
 };
