@@ -6,7 +6,7 @@ import "../CSS/mobile/CadastroCliente.css"
 const CadastroCliente = ({ closeModal }) => {
   
 
-  
+  const [isLoged, setIsLoged] = useState(false);
   const [formData, setFormData] = useState({
     nome: "",
     senha: "",

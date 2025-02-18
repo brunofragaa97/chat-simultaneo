@@ -1,16 +1,28 @@
 import '../CSS/desktop/index.css'
 import '../CSS/mobile/index.css'
 import Login from './login';
-import {  useState } from "react";
+import { useState } from "react";
 import ModalCadastro from './ModalCadastro';
 import CadastroCliente from './CadastroCliente';
 
 function Index() {
+  const [isLoged, setIsLoged] = useState(localStorage.getItem("estadoDeLogin"));
+  const [activeModalContent, setActiveModalContent] = useState(null);
 
-    const [activeModalContent, setActiveModalContent] = useState(null);
+  const onLogout = () => {
+    setIsLoged(false);
+    localStorage.setItem("estadoDeLogin", false)
+  }
 
-// Função para abrir o modal
-const openModal = (index) => {
+  const onLogin = () => {
+    setIsLoged(true);
+    localStorage.setItem("estadoDeLogin", true);
+    if(isLoged)
+    console.log ("Esta logado agora")
+  }
+
+  // Função para abrir o modal
+  const openModal = (index) => {
     setActiveModalContent(index);
   };
 
@@ -20,18 +32,19 @@ const openModal = (index) => {
   };
 
 
-return <>
+  return <>
     <div className="background-container">
-        <div className="container-principal">
-        <Login />
+      {isLoged && <div className='btn-logout'><button onClick={onLogout}>SAIR</button></div>}
+      <div className="container-principal">
+        <Login onLogin={onLogin} />
         <a onClick={() => openModal(1)}>Ou CADASTRE-SE</a>
         <ModalCadastro isOpen={activeModalContent === 1} onClose={closeModal}>
-            <CadastroCliente closeModal={closeModal} />
-          </ModalCadastro>
-        </div>
-       
+          <CadastroCliente closeModal={closeModal} />
+        </ModalCadastro>
+      </div>
+
     </div>
-</>
+  </>
 
 }
 

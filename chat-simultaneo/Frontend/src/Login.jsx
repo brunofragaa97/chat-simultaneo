@@ -2,12 +2,12 @@ import '../CSS/desktop/login.css'
 import '../CSS/mobile/login.css'
 import React, { useState } from "react";
 
-    const Login = () => {
+    const Login = ({ onLogin }) => {
         const [formData, setFormData] = useState({
           email: "",
           senha: "",
         });
-      
+        const [isLoged, setIsLoged] = useState(false);
         const [errors, setErrors] = useState({}); // Inicializa como objeto vazio
         const [inputError, setInputError] = useState({});
       
@@ -43,6 +43,7 @@ import React, { useState } from "react";
                 const servidor = await response.json();
 
                 if (response.ok) {
+                  onLogin()
                   console.log(servidor.message , "LOGADO")
                   alert(servidor.message)
                   setErrors({ login: servidor.message })
