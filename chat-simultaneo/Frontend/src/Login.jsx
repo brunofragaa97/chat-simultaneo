@@ -32,9 +32,9 @@ import React, { useState } from "react";
             e.preventDefault();
             if(validateForm()){
               try{
-                const response = await fetch("http://192.168.0.197:8080/userLogin",{
+                const response = await fetch("http://192.168.0.197:9000/auth/authUser",{
                   method: 'POST',
-                  headers: {"Content-Type": "aplication/json"},
+                  headers: {"Content-Type": "application/json"},
                   body: JSON.stringify({
                     email: formData.email,
                     senha: formData.senha
@@ -43,14 +43,17 @@ import React, { useState } from "react";
                 const servidor = await response.json();
 
                 if (response.ok) {
-                  console.log("Mensagem servidor: " , servidor.message , "LOGADO")
+                  console.log(servidor.message , "LOGADO")
+                  alert(servidor.message)
+                  setErrors({ login: servidor.message })
                 }else{
-                  console.log ("Mensagem servidor: " , servidor.message ,"erro ao logar")
-                  setErrors ({ login: "Usuario ou senha invalidos"});
+                  alert(servidor.message)
+                  setErrors ({ login: servidor.message });
                 }
               }
               catch (error){
-                setErrors({ login: "Servidor indisponivel baby"});
+                alert("Que pena, parece que o servidor está indisponivel")
+                setErrors({ login: "Servidor indisponivel =("});
               }
             }
         }

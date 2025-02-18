@@ -13,7 +13,7 @@ public class AuthUsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public Boolean autenticarUsuario(String email, String senha){
+    public boolean autenticarUsuario(String email, String senha){
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
 
         if(usuarioOptional.isPresent()){
