@@ -61,8 +61,8 @@ const CadastroCliente = ({ closeModal }) => {
           });
           setErrors({ });
         } else {
-          console.log("Erro ao cadastrar cliente");
-          setErrors({ login: "erro ao enviar informacoes" });
+          console.log("Erro ao cadastrar cliente" , );
+          setErrors({ login: servidor.mensagem});
         }
       } catch (error) {
         console.error("Erro ao conectar no servidor:", error);
@@ -76,7 +76,7 @@ const CadastroCliente = ({ closeModal }) => {
 
   return (
     <div className="form-container">
-      <h1>Cadastro de Cliente</h1>
+      <h1>Cadastro de Usuario</h1>
       <form onSubmit={enviarCadastro} className="client-form">
         {[
           { label: "Nome", name: "nome", type: "text" },
