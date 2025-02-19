@@ -2,7 +2,7 @@
 .chat-container {
     display: flex;
     height: 70vh;
-    background: transparent;
+    background: #0a192f; /* Azul escuro */
     color: #e0e0e0;
     font-family: 'Roboto', sans-serif;
     border-radius: 10px;
@@ -11,11 +11,11 @@
 /* Sidebar de usuários */
 .sidebar {
     width: 30vh;
-    background: #1a1a1a; /* Cor sólida para contraste */
+    background: #1a1a1a; /* Preto escuro */
     padding: 20px;
-    border-radius: 10px;
-    margin-right: 20px;
+    border-radius: 10px 0 0 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
 /* Área principal do chat */
@@ -25,22 +25,31 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: #121212; /* Fundo escuro */
-    border-radius: 10px;
+    background: #121212; /* Preto mais claro */
+    border-radius: 0 10px 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Caixa de mensagens */
+
 .messages-box {
     flex: 1;
-    background: #1a1a1a;
     padding: 20px;
     border-radius: 10px;
     overflow-y: auto;
     box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
     border: 1px solid #333333;
     margin-bottom: 20px;
-}
+    background: linear-gradient(45deg, #002b5b, #b31054);
+    background-size: 400% 400%;
+    animation: gradientBG 4s ease infinite;
+  }
+  
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
 /* Campo de entrada e botão */
 .input-container {
@@ -66,7 +75,7 @@
 .send-button {
     margin-left: 10px;
     padding: 12px 20px;
-    background: linear-gradient(135deg, #007bff, #00cc66); /* Degradê azul para verde */
+    background: linear-gradient(135deg, #2b6cb0, #3182ce); /* Degradê de azul escuro */
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -75,8 +84,67 @@
 }
 
 .send-button:hover {
-    background: linear-gradient(135deg, #0056b3, #009933); /* Alteração de cor no hover */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    background: linear-gradient(135deg, #1a365d, #2c5282); /* Alteração de cor no hover */
+    box-shadow: 0 0 8px rgba(49, 132, 206, 0.5);
+}
+
+/* Estilo para cada item de usuário */
+.user-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a; /* Cor de fundo do item */
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-details {
+    flex: 1;
+  }
+  
+  .user-name {
+    margin: 0;
+    font-weight: bold;
+    color: #e0e0e0;
+  }
+  
+  .user-status {
+    margin: 0;
+    font-size: 0.8em;
+    color: #888;
+  }
+  
+  .user-separator {
+    width: 80%;
+    margin: 0 auto;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(150, 150, 150, 0.75), rgba(255, 255, 255, 0));
+  }
+
+
+/* Botão para abrir/ocultar sidebar no mobile */
+.toggle-sidebar {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
 }
 
 /* Estilos responsivos para dispositivos móveis */
@@ -86,17 +154,21 @@
     }
 
     .sidebar {
-        width: 100%;
-        height: 60px;
-        text-align: center;
-        padding: 10px;
-        border-right: none;
-        border-bottom: 2px solid #333333;
-        box-shadow: none;
+        position: fixed;
+        top: 0;
+        left: -30vh; /* Começa fora da tela */
+        height: 100vh;
+        width: 30vh;
+        z-index: 1000;
+        transform: translateX(0);
+    }
+
+    .sidebar.open {
+        transform: translateX(30vh); /* Abre a sidebar */
     }
 
     .chat-content {
-        padding: 10px;
+        width: 100%;
     }
 
     .messages-box {
@@ -118,5 +190,9 @@
         width: 100%;
         margin-left: 0;
         margin-top: 5px;
+    }
+
+    .toggle-sidebar {
+        display: block;
     }
 }

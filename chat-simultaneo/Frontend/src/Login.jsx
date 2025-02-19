@@ -7,7 +7,7 @@ import React, { useState } from "react";
           email: "",
           senha: "",
         });
-        const [isLoged, setIsLoged] = useState(false);
+
         const [errors, setErrors] = useState({}); // Inicializa como objeto vazio
         const [inputError, setInputError] = useState({});
       
@@ -47,6 +47,8 @@ import React, { useState } from "react";
                   console.log(servidor.message , "LOGADO")
                   alert(servidor.message)
                   setErrors({ login: servidor.message })
+                  
+
                 }else{
                   alert(servidor.message)
                   setErrors ({ login: servidor.message });

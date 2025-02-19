@@ -6,16 +6,24 @@ public class UsuarioDto {
     private String nome;
     private String senha;
     private String email;
+    private String status;
+
 
     //Construtor vazio (é necessario para utilizar JPA)
     public UsuarioDto() {
 
     }
 
+    public long getId() {
+        return id;
+    }
+
+
     //Construtor com Parametros
-    public UsuarioDto(String nome, String email) {
+    public UsuarioDto(String nome, String email, String status) {
         this.nome = nome;
         this.email = email;
+        this.status = status;
     }
 
     //Getters and Setters
@@ -42,5 +50,9 @@ public class UsuarioDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setStatus(String status) { this.status = status; }
+
+    public String getStatus() { return status; }
 }
 

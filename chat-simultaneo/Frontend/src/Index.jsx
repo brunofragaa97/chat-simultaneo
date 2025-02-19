@@ -1,12 +1,19 @@
 import '../CSS/desktop/index.css'
 import '../CSS/mobile/index.css'
 import Login from './login';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalCadastro from './ModalCadastro';
 import CadastroCliente from './CadastroCliente';
 import Chat from './Chat';
 
 function Index() {
+
+  //USADO TEMPORARIOMENTE PARA NÃO PERMANECER LOGADO NO CHAT , POSTERIORMENTE SERA IMPLEMENTADO JSON WEB TOKEN
+  useEffect(() => {
+    onLogout();
+  }, []);
+
+
   const [isLoged, setIsLoged] = useState(localStorage.getItem("estadoDeLogin"));
   const [activeModalContent, setActiveModalContent] = useState(null);
 
@@ -18,6 +25,7 @@ function Index() {
   const onLogin = () => {
     setIsLoged(true);
     localStorage.setItem("estadoDeLogin", true);
+    
     if (isLoged)
       console.log("Esta logado agora")
   }
@@ -45,8 +53,8 @@ function Index() {
             <CadastroCliente closeModal={closeModal} />
           </ModalCadastro>
 
-        </div> 
-        ) : (<div className='container-chat'><Chat /></div>)
+        </div>
+      ) : (<div className='container-chat'><Chat /></div>)
       }
     </div>
   </>
