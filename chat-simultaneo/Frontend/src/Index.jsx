@@ -4,6 +4,7 @@ import Login from './login';
 import { useState } from "react";
 import ModalCadastro from './ModalCadastro';
 import CadastroCliente from './CadastroCliente';
+import Chat from './Chat';
 
 function Index() {
   const [isLoged, setIsLoged] = useState(localStorage.getItem("estadoDeLogin"));
@@ -17,8 +18,8 @@ function Index() {
   const onLogin = () => {
     setIsLoged(true);
     localStorage.setItem("estadoDeLogin", true);
-    if(isLoged)
-    console.log ("Esta logado agora")
+    if (isLoged)
+      console.log("Esta logado agora")
   }
 
   // Função para abrir o modal
@@ -35,14 +36,18 @@ function Index() {
   return <>
     <div className="background-container">
       {isLoged && <div className='btn-logout'><button onClick={onLogout}>SAIR</button></div>}
-      <div className="container-principal">
-        <Login onLogin={onLogin} />
-        <a onClick={() => openModal(1)}>Ou CADASTRE-SE</a>
-        <ModalCadastro isOpen={activeModalContent === 1} onClose={closeModal}>
-          <CadastroCliente closeModal={closeModal} />
-        </ModalCadastro>
-      </div>
+      {!isLoged ? (
+        <div className="container-login">
 
+          <Login onLogin={onLogin} />
+          <a onClick={() => openModal(1)}>Ou CADASTRE-SE</a>
+          <ModalCadastro isOpen={activeModalContent === 1} onClose={closeModal}>
+            <CadastroCliente closeModal={closeModal} />
+          </ModalCadastro>
+
+        </div> 
+        ) : (<div className='container-chat'><Chat /></div>)
+      }
     </div>
   </>
 

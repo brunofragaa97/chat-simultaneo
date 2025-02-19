@@ -7,13 +7,23 @@
     background: linear-gradient(135deg, #1f1f2e, #121212);
     font-family: 'Arial', sans-serif;
   }
-  .container-principal{
+  .container-login{
     width: 30vw;
     height: 60vh;
     background-color: #1f1f1f;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+  .container-chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
   .btn-logout {
     position: absolute;
     top: 10px;
