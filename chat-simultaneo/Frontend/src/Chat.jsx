@@ -25,8 +25,7 @@ const Chat = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://192.168.0.197:9000/isAuthenticated")
-    console.log("autenticado!!!!")
+    console.log(localStorage.getItem("userToken"))
   }, []);
 
 

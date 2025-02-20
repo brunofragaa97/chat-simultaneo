@@ -45,6 +45,7 @@ import React, { useState } from "react";
                 if (response.ok) {
                   onLogin()
                   console.log(servidor.message , servidor.token)
+                  localStorage.setItem("userToken", servidor.token)
                   alert(servidor.message)
                   setErrors({ login: servidor.token })
                   
