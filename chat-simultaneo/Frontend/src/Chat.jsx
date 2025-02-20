@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../CSS/desktop/chat.css";
 
 
+
+
 const USER_DATA = [
   { id: 1, name: 'Usuário 1', status: 'Online', image: 'user1.jpg' },
  
@@ -23,7 +25,8 @@ const Chat = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://192.168.0.197:9000/usuarios/logged")
+    fetch("http://192.168.0.197:9000/isAuthenticated")
+    console.log("autenticado!!!!")
   }, []);
 
 

@@ -44,14 +44,14 @@ import React, { useState } from "react";
 
                 if (response.ok) {
                   onLogin()
-                  console.log(servidor.message , "LOGADO")
+                  console.log(servidor.message , servidor.token)
                   alert(servidor.message)
-                  setErrors({ login: servidor.message })
+                  setErrors({ login: servidor.token })
                   
 
                 }else{
                   alert(servidor.message)
-                  setErrors ({ login: servidor.message });
+                  setErrors ({ login: servidor.token });
                 }
               }
               catch (error){

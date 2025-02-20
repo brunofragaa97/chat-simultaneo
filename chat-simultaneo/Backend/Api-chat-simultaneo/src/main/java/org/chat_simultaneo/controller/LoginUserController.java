@@ -3,6 +3,7 @@ package org.chat_simultaneo.controller;
 
 import org.chat_simultaneo.DTO.AuthResponseDto;
 import org.chat_simultaneo.models.Usuario;
+import org.chat_simultaneo.security.JwtUtil;
 import org.chat_simultaneo.service.AuthUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthUsuarioController {
+public class LoginUserController {
 
     @Autowired
     private AuthUsuarioService authUsuarioService;
@@ -22,12 +23,15 @@ public class AuthUsuarioController {
         boolean estaAutenticado = authUsuarioService.autenticarUsuario(usuario.getEmail(), usuario.getSenha());
 
         if (estaAutenticado) {
-            System.out.println("Usuario: " + usuario.getEmail() + " Autenticado com sucesso");
-            return ResponseEntity.ok(new AuthResponseDto("Usuario Autenticado com SUCESSO", true));
+
+            String token = JwtUtil.generateToken(usuario.getEmail());
+            System.out.println("Usuario: " + usuario.getEmail() + " Autenticado com sucesso" + "\nToken: " + token);
+            return ResponseEntity.ok(new AuthResponseDto("Usuario Autenticado com SUCESSO", true, token));
 
         } else {
             System.out.println("Usuario: " + usuario.getEmail() + "  Não autorizado");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponseDto("Usuario ou senha invalidos", false));
+            String token = "Token não gerado";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponseDto("Usuario ou senha invalidos", false, token));
         }
     }
 
