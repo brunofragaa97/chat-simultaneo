@@ -1,14 +1,15 @@
 package org.chat_simultaneo.models;
 
-
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-//Informa que a classe é uma entidade JPA-hibernate
+import java.util.Collection;
+
 @Entity
 @Table(name = "usuarios")
+public class Usuario implements UserDetails {
 
-public class Usuario {
-    //cria um id unico automatico no banco
     @Id
     @GeneratedValue
     private long id;
@@ -17,18 +18,52 @@ public class Usuario {
     private String senha;
     private String email;
 
-    //Construtor vazio (é necessario para utilizar JPA)
-    public Usuario() {
+    private boolean ativo;  // Adicionei o campo "ativo"
 
+    public Usuario() {
     }
 
-    //Construtor com Parametros
     public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
 
-    //Getters and Setters
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;  // Exemplo simplificado
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return ativo;  // Agora o método funciona com o campo "ativo"
+    }
+
+    // Getters and Setters
     public String getNome() {
         return nome;
     }
@@ -51,5 +86,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAtivo() {  // Getter para o campo "ativo"
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {  // Setter para o campo "ativo"
+        this.ativo = ativo;
     }
 }

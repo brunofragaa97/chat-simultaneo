@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/desktop/chat.css";
 
-
-
-
-const USER_DATA = [
-  { id: 1, name: 'Usuário 1', status: 'Online', image: 'user1.jpg' },
- 
-];
 const UserListItem = ({ user }) => (
   <li className="user-item">
     <div className="user-info">
@@ -20,15 +13,57 @@ const UserListItem = ({ user }) => (
   </li>
 );
 
-
 const Chat = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // Estado para armazenar as informações do usuário
+  const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
+  const [error, setError] = useState(null); // Estado para controlar erros
+
+  // Obtendo o token JWT do localStorage
+  const token = localStorage.getItem("userToken");
+  console.log("##O Token é este: ", token);
 
   useEffect(() => {
-    console.log(localStorage.getItem("userToken"))
-  }, []);
+    if (!token) {
+      setError("Token não encontrado. Por favor, faça login novamente.");
+      setLoading(false);
+      return;
+    }
 
+    // Definindo a URL do endpoint
+    const apiUrl = 'http://192.168.0.197:9000/api/userDetails';
 
+    // Fazendo a requisição GET
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao carregar os dados');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setUserDetails(data); // Armazenando os dados no estado
+        setLoading(false); // Definindo o carregamento como concluído
+      })
+      .catch(err => {
+        setError(err.message); // Armazenando o erro, se houver
+        setLoading(false); // Definindo o carregamento como concluído
+      });
+  }, [token]);
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (error) {
+    return <div>Erro: {error}</div>;
+  }
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -39,17 +74,23 @@ const Chat = () => {
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} id="sidebar">
         <h3>Usuários</h3>
         <ul>
-          {USER_DATA.map((user, index) => (
-            <React.Fragment key={user.id}>
-              <UserListItem user={user} />
-              {index < USER_DATA.length - 1 && <hr className="user-separator" />}
-            </React.Fragment>
-          ))}
+          {/* Exibindo o usuário logado */}
+          {userDetails && (
+            <UserListItem 
+              user={{
+                id: userDetails.id,
+                name: userDetails.nome, // Nome do usuário retornado da API
+                status: userDetails.status, // Status do usuário
+                image: 'user1.jpg' // Imagem do usuário (pode ser alterada conforme necessário)
+              }}
+            />
+          )}
         </ul>
       </div>
+
+      {/* Exibindo as informações do usuário */}
       <div className="chat-content">
         <div className="messages-box">
-          {/* Placeholder for messages */}
           <p>Mensagem 1</p>
           <p>Mensagem 2</p>
         </div>
@@ -58,6 +99,7 @@ const Chat = () => {
           <button className="send-button">Enviar</button>
         </div>
       </div>
+
       <button onClick={toggleSidebar} className="toggle-sidebar" id="toggleSidebar">
         {isSidebarOpen ? 'Fechar Sidebar' : 'Abrir Sidebar'}
       </button>
