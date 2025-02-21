@@ -11,12 +11,16 @@ import java.util.Collection;
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String nome;
     private String senha;
+
     private String email;
+
+    @Column(name = "img_perfil")
+    private String imgPerfil;
 
     private boolean ativo;  // Adicionei o campo "ativo"
 
@@ -86,6 +90,14 @@ public class Usuario implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setImgPerfil(String imgPerfil) {
+        this.imgPerfil = imgPerfil;
+    }
+
+    public String getImgPerfil() {
+        return imgPerfil;
     }
 
     public boolean isAtivo() {  // Getter para o campo "ativo"

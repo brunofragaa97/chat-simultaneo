@@ -4,7 +4,7 @@ import "../CSS/desktop/chat.css";
 const UserListItem = ({ user }) => (
   <li className="user-item">
     <div className="user-info">
-      <img src={user.image} alt={user.name} className="user-image" />
+      <img src={`${user.image}`} alt={user.name} className="user-image" />
       <div className="user-details">
         <p className="user-name">{user.name}</p>
         <p className="user-status">{user.status}</p>
@@ -18,6 +18,8 @@ const Chat = () => {
   const [userDetails, setUserDetails] = useState(null); // Estado para armazenar as informações do usuário
   const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
   const [error, setError] = useState(null); // Estado para controlar erros
+
+
 
   // Obtendo o token JWT do localStorage
   const token = localStorage.getItem("userToken");
@@ -68,7 +70,9 @@ const Chat = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
+  console.log(userDetails.nome)
+  console.log(userDetails.nome)
+  console.log(userDetails.imgPerfil)
   return (
     <div className="chat-container">
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} id="sidebar">
@@ -81,7 +85,7 @@ const Chat = () => {
                 id: userDetails.id,
                 name: userDetails.nome, // Nome do usuário retornado da API
                 status: userDetails.status, // Status do usuário
-                image: 'user1.jpg' // Imagem do usuário (pode ser alterada conforme necessário)
+                image: userDetails.imgPerfil // Imagem do usuário (pode ser alterada conforme necessário)
               }}
             />
           )}

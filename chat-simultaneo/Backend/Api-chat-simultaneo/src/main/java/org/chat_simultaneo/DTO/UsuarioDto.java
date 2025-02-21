@@ -5,6 +5,7 @@ public class UsuarioDto {
 
     private String nome;
     private String email;
+    private String imgPerfil;
     private String status;
 
 
@@ -19,9 +20,10 @@ public class UsuarioDto {
 
 
     //Construtor com Parametros
-    public UsuarioDto(String nome, String email, String status) {
+    public UsuarioDto(String nome, String email, String imgPerfil, String status) {
         this.nome = nome;
         this.email = email;
+        this.imgPerfil = imgPerfil;
         this.status = status;
     }
 
@@ -42,8 +44,27 @@ public class UsuarioDto {
         this.email = email;
     }
 
+    public String getImgPerfil() {
+        return imgPerfil;
+    }
+
+    public void setImgPerfil(String imgPerfil) {
+        this.imgPerfil = imgPerfil;
+    }
+
     public void setStatus(String status) { this.status = status; }
 
     public String getStatus() { return status; }
+
+    @Override
+    public String toString() {
+        return "UsuarioDto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", Caminho imagem='" + imgPerfil + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }
 

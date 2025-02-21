@@ -28,8 +28,8 @@ public class UserDetailsController {
         if (usuario == null) {
             return ResponseEntity.notFound().build(); // Retorna 404 caso o usuário não seja encontrado
         }
-        UsuarioDto usuarioDto = new UsuarioDto(usuario.getNome(), usuario.getEmail(),  "Online");
-
+        UsuarioDto usuarioDto = new UsuarioDto(usuario.getNome(), usuario.getEmail(), usuario.getImgPerfil(),  "Online");
+        System.out.print("Dados User: => " + usuarioDto);
         return ResponseEntity.ok(usuarioDto);
     }
 
