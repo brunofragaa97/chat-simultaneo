@@ -4,7 +4,7 @@ import "../CSS/desktop/chat.css";
 const UserListItem = ({ user }) => (
   <li className="user-item">
     <div className="user-info">
-      <img src={`${user.image}`} alt={user.name} className="user-image" />
+      <img src={user.image} alt={user.name} className="user-image" />
       <div className="user-details">
         <p className="user-name">{user.name}</p>
         <p className="user-status">{user.status}</p>
