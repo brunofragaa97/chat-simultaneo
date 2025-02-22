@@ -54,7 +54,7 @@ function Index() {
           </ModalCadastro>
 
         </div>
-      ) : (<div className='container-chat'><Chat /></div>)
+      ) : (<div className='container-chat'><Chat onLogout={onLogout}/></div>)
       }
     </div>
   </>

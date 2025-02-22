@@ -13,50 +13,89 @@ const UserListItem = ({ user }) => (
   </li>
 );
 
-const Chat = () => {
+const Chat = ({ onLogout }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState(null); // Estado para armazenar as informações do usuário
-  const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
-  const [error, setError] = useState(null); // Estado para controlar erros
+  const [userDetails, setUserDetails] = useState(null); // Dados do usuário logado
+  const [onlineUsers, setOnlineUsers] = useState({}); // Objeto vazio como estado inicial
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [socket, setSocket] = useState(null);
 
-
-
-  // Obtendo o token JWT do localStorage
   const token = localStorage.getItem("userToken");
   console.log("##O Token é este: ", token);
 
+  // useEffect para buscar os detalhes do usuário logado
   useEffect(() => {
     if (!token) {
-      setError("Token não encontrado. Por favor, faça login novamente.");
+      alert("Token não encontrado. Por favor, faça login novamente.");
       setLoading(false);
       return;
     }
 
-    // Definindo a URL do endpoint
-    const apiUrl = 'http://192.168.0.197:9000/api/userDetails';
-
-    // Fazendo a requisição GET
+    const apiUrl = "http://192.168.0.197:9000/api/userDetails";
     fetch(apiUrl, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Erro ao carregar os dados');
+          throw new Error("Erro ao carregar os dados");
         }
         return response.json();
       })
-      .then(data => {
-        setUserDetails(data); // Armazenando os dados no estado
-        setLoading(false); // Definindo o carregamento como concluído
+      .then((data) => {
+        setUserDetails(data);
+        setLoading(false);
       })
-      .catch(err => {
-        setError(err.message); // Armazenando o erro, se houver
-        setLoading(false); // Definindo o carregamento como concluído
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
       });
+  }, [token]);
+
+  // useEffect para configurar o WebSocket
+  useEffect(() => {
+    if (!token) return;
+
+    const ws = new WebSocket(`ws://192.168.0.197:9000/chat?token=${token}`);
+
+    ws.onopen = () => {
+      console.log("WebSocket estabelecido");
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const userList = JSON.parse(event.data);
+        // Garante que userList é um objeto válido
+        if (userList && typeof userList === "object" && !Array.isArray(userList)) {
+          setOnlineUsers(userList);
+        } else {
+          console.error("Dados inválidos recebidos do WebSocket:", userList);
+          setOnlineUsers({});
+        }
+      } catch (e) {
+        console.error("Erro ao parsear mensagem do WebSocket:", e);
+        setOnlineUsers({});
+      }
+    };
+
+    ws.onclose = () => {
+      console.log("Conexão WebSocket encerrada");
+      setOnlineUsers({});
+    };
+
+    ws.onerror = (error) => {
+      console.error("Erro no WebSocket:", error);
+    };
+
+    setSocket(ws);
+
+    return () => {
+      ws.close(); // Fecha a conexão corretamente
+    };
   }, [token]);
 
   if (loading) {
@@ -70,43 +109,75 @@ const Chat = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  console.log(userDetails.nome)
-  console.log(userDetails.nome)
-  console.log(userDetails.imgPerfil)
+
+  const handleLogout = () => {
+    if (socket) {
+      socket.close();
+    }
+    localStorage.removeItem("userToken");
+    onLogout();
+  };
+
   return (
     <div className="chat-container">
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} id="sidebar">
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`} id="sidebar">
         <h3>Usuários</h3>
         <ul>
-          {/* Exibindo o usuário logado */}
+          {/* Usuário logado */}
           {userDetails && (
-            <UserListItem 
+            <UserListItem
               user={{
                 id: userDetails.id,
-                name: userDetails.nome, // Nome do usuário retornado da API
-                status: userDetails.status, // Status do usuário
-                image: userDetails.imgPerfil // Imagem do usuário (pode ser alterada conforme necessário)
+                name: userDetails.nome,
+                status: userDetails.status || "online",
+                image: userDetails.imgPerfil || "default_photo_url",
               }}
             />
+          )}
+          {/* Usuários online via WebSocket */}
+          {onlineUsers && Object.keys(onlineUsers).length > 0 ? (
+            Object.entries(onlineUsers).map(([email, user]) =>
+              email !== userDetails?.email ? (
+                <UserListItem
+                  key={email}
+                  user={{
+                    id: email,
+                    name: user.name,
+                    status: user.status,
+                    image: user.photo || "default_photo_url",
+                  }}
+                />
+              ) : null
+            )
+          ) : (
+            <li>Nenhum usuário online</li>
           )}
         </ul>
       </div>
 
-      {/* Exibindo as informações do usuário */}
       <div className="chat-content">
         <div className="messages-box">
           <p>Mensagem 1</p>
           <p>Mensagem 2</p>
         </div>
         <div className="input-container">
-          <input type="text" className="message-input" placeholder="Digite sua mensagem..." />
+          <input
+            type="text"
+            className="message-input"
+            placeholder="Digite sua mensagem..."
+          />
           <button className="send-button">Enviar</button>
         </div>
       </div>
 
-      <button onClick={toggleSidebar} className="toggle-sidebar" id="toggleSidebar">
-        {isSidebarOpen ? 'Fechar Sidebar' : 'Abrir Sidebar'}
+      <button
+        onClick={toggleSidebar}
+        className="toggle-sidebar"
+        id="toggleSidebar"
+      >
+        {isSidebarOpen ? "Fechar Sidebar" : "Abrir Sidebar"}
       </button>
+     
     </div>
   );
 };
