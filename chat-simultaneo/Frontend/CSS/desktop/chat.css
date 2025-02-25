@@ -2,47 +2,64 @@
 .chat-container {
     display: flex;
     height: 70vh;
-    background: #0a192f; /* Azul escuro */
+    background: #0a192f;
     color: #e0e0e0;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     border-radius: 10px;
-}
-
-/* Sidebar de usuários */
-.sidebar {
+  }
+  
+  /* Sidebar de usuários */
+  .sidebar {
     width: 30vh;
-    background: #1a1a1a; /* Preto escuro */
+    background: #1a1a1a;
     padding: 20px;
     border-radius: 10px 0 0 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
-}
-
-/* Área principal do chat */
-.chat-content {
+  }
+  
+  /* Área principal do chat */
+  .chat-content {
     width: 70vh;
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: #121212; /* Preto mais claro */
+    background: #121212;
     border-radius: 0 10px 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Caixa de mensagens */
-
-.messages-box {
+  }
+  
+  /* Caixa de mensagens */
+  .messages-box {
     flex: 1;
     padding: 20px;
     border-radius: 10px;
     overflow-y: auto;
-    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 8px rgba(7, 7, 7, 0.1);
     border: 1px solid #333333;
     margin-bottom: 20px;
-    background: linear-gradient(45deg, #002b5b, #b31054);
+    background: linear-gradient(45deg, #044188, #070707);
     background-size: 400% 400%;
     animation: gradientBG 4s ease infinite;
+  }
+  
+  .messages-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .messages-box::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+  
+  .messages-box::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 10px;
+  }
+  
+  .messages-box::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
   }
   
   @keyframes gradientBG {
@@ -50,18 +67,62 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-
-/* Campo de entrada e botão */
-.input-container {
+  
+  /* Estilo para cada mensagem individual */
+  .message {
+    max-width: 70%;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+  }
+  
+  .message.sent {
+    background-color: #1a3c34; /* Verde escuro pra mensagens enviadas */
+    color: #e0e0e0;
+    margin-right: auto; /* Alinha à esquerda */
+    border-bottom-left-radius: 2px;
+  }
+  
+  .message.received {
+    background-color: #2a2a2a; /* Cinza escuro pra mensagens recebidas */
+    color: #e0e0e0;
+    margin-left: auto; /* Alinha à direita */
+    border-bottom-right-radius: 2px;
+  }
+  
+  .message .sender {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #64b5f6;
+  }
+  
+  .message .content {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .message .time {
+    font-size: 10px;
+    color: #b0b0b0;
+    text-align: right;
+    margin-top: 5px;
+  }
+  
+  /* Campo de entrada e botão */
+  .input-container {
     display: flex;
     margin-top: 10px;
     background: #1a1a1a;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #333333;
-}
-
-.message-input {
+  }
+  
+  .message-input {
     flex: 1;
     padding: 12px;
     border: none;
@@ -70,30 +131,30 @@
     color: #e0e0e0;
     font-size: 14px;
     outline: none;
-}
-
-.send-button {
+  }
+  
+  .send-button {
     margin-left: 10px;
     padding: 12px 20px;
-    background: linear-gradient(135deg, #2b6cb0, #3182ce); /* Degradê de azul escuro */
+    background: linear-gradient(135deg, #2b6cb0, #3182ce);
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s ease;
-}
-
-.send-button:hover {
-    background: linear-gradient(135deg, #1a365d, #2c5282); /* Alteração de cor no hover */
+  }
+  
+  .send-button:hover {
+    background: linear-gradient(135deg, #1a365d, #2c5282);
     box-shadow: 0 0 8px rgba(49, 132, 206, 0.5);
-}
-
-/* Estilo para cada item de usuário */
-.user-item {
+  }
+  
+  /* Estilo para cada item de usuário */
+  .user-item {
     padding: 10px;
     display: flex;
     align-items: center;
-    background-color: #1a1a1a; /* Cor de fundo do item */
+    background-color: #1a1a1a;
   }
   
   .user-info {
@@ -129,12 +190,16 @@
     margin: 0 auto;
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(150, 150, 150, 0.75), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(150, 150, 150, 0.75),
+      rgba(255, 255, 255, 0)
+    );
   }
-
-
-/* Botão para abrir/ocultar sidebar no mobile */
-.toggle-sidebar {
+  
+  /* Botão para abrir/ocultar sidebar no mobile */
+  .toggle-sidebar {
     display: none;
     position: fixed;
     bottom: 20px;
@@ -145,54 +210,58 @@
     border-radius: 50%;
     padding: 15px;
     cursor: pointer;
-}
-
-/* Estilos responsivos para dispositivos móveis */
-@media screen and (max-width: 768px) {
+  }
+  
+  /* Estilos responsivos para dispositivos móveis */
+  @media screen and (max-width: 768px) {
     .chat-container {
-        flex-direction: column;
+      flex-direction: column;
     }
-
+  
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: -30vh; /* Começa fora da tela */
-        height: 100vh;
-        width: 30vh;
-        z-index: 1000;
-        transform: translateX(0);
+      position: fixed;
+      top: 0;
+      left: -30vh;
+      height: 100vh;
+      width: 30vh;
+      z-index: 1000;
+      transform: translateX(0);
     }
-
+  
     .sidebar.open {
-        transform: translateX(30vh); /* Abre a sidebar */
+      transform: translateX(30vh);
     }
-
+  
     .chat-content {
-        width: 100%;
+      width: 100%;
     }
-
+  
     .messages-box {
-        padding: 15px;
-        height: 60vh;
+      padding: 15px;
+      height: 60vh;
     }
-
+  
     .input-container {
-        flex-direction: column;
-        padding: 5px;
+      flex-direction: column;
+      padding: 5px;
     }
-
+  
     .message-input {
-        width: 100%;
-        padding: 10px;
+      width: 100%;
+      padding: 10px;
     }
-
+  
     .send-button {
-        width: 100%;
-        margin-left: 0;
-        margin-top: 5px;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 5px;
     }
-
+  
     .toggle-sidebar {
-        display: block;
+      display: block;
     }
-}
+  
+    .message {
+      max-width: 85%;
+    }
+  }

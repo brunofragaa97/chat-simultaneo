@@ -1,4 +1,4 @@
-package org.chat_simultaneo.security;
+package org.chat_simultaneo.JWT;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

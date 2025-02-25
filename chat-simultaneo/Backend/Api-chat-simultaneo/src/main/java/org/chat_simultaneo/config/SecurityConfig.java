@@ -1,6 +1,7 @@
-package org.chat_simultaneo.security;
+package org.chat_simultaneo.config;
 
-import org.chat_simultaneo.service.AuthUsuarioService;
+import org.chat_simultaneo.JWT.JwtAuthenticationFilter;
+import org.chat_simultaneo.MVC.service.AuthUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

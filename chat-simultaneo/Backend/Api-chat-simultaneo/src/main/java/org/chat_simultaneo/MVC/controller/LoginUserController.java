@@ -1,10 +1,10 @@
-package org.chat_simultaneo.controller;
+package org.chat_simultaneo.MVC.controller;
 
 
 import org.chat_simultaneo.DTO.AuthResponseDto;
-import org.chat_simultaneo.models.Usuario;
-import org.chat_simultaneo.security.JwtUtil;
-import org.chat_simultaneo.service.AuthUsuarioService;
+import org.chat_simultaneo.MVC.models.Usuario;
+import org.chat_simultaneo.JWT.JwtUtil;
+import org.chat_simultaneo.MVC.service.AuthUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

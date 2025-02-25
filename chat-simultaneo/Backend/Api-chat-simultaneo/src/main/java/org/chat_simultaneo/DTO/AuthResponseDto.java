@@ -1,7 +1,5 @@
 package org.chat_simultaneo.DTO;
 
-import org.chat_simultaneo.security.JwtUtil;
-
 public class AuthResponseDto {
 
     private String message;

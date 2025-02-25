@@ -1,4 +1,4 @@
-package org.chat_simultaneo.models;
+package org.chat_simultaneo.MVC.models;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,13 +16,12 @@ public class Usuario implements UserDetails {
 
     private String nome;
     private String senha;
-
     private String email;
 
     @Column(name = "img_perfil")
     private String imgPerfil;
 
-    private boolean ativo;  // Adicionei o campo "ativo"
+    private boolean ativo;
 
     public Usuario() {
     }

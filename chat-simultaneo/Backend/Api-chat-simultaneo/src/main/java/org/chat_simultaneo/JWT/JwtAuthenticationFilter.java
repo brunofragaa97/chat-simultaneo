@@ -1,4 +1,4 @@
-package org.chat_simultaneo.security;
+package org.chat_simultaneo.JWT;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
